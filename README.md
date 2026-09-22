@@ -18,6 +18,11 @@ Bring **Wallpaper Engine**-style live wallpapers to Linux! This project allows y
 
 > ⚠️ This is an educational project that evolved into a functional OpenGL-based wallpaper engine for Linux. Expect some limitations and quirks!
 
+> [!NOTE]
+> This repository is a fork of [Almamu/linux-wallpaperengine](https://github.com/Almamu/linux-wallpaperengine).
+> It keeps the upstream source mostly unchanged and adds an unofficial, containerized AppImage packaging workflow.
+> The AppImage and its packaging scripts are maintained by this fork and are not official upstream releases.
+
 ---
 
 ## 📦 System Requirements
@@ -126,7 +131,7 @@ linux-wallpaperengine --assets-dir /path/to/assets
 Clone the repo:
 
 ```bash
-git clone --recurse-submodules https://github.com/Almamu/linux-wallpaperengine.git
+git clone --recurse-submodules https://github.com/qw0er/linux-wallpaperengine.git
 cd linux-wallpaperengine
 ```
 
@@ -141,7 +146,7 @@ make
 Once the build process is finished, this should create a new `output` folder containing the app and all the required
 support files to run.
 
-### Build an AppImage
+### Build the unofficial AppImage (fork addition)
 
 The AppImage build runs entirely inside an Ubuntu 22.04 container. The host only needs either Podman or Docker;
 Podman is used when both are installed. No compiler or project development packages are required on the host.
