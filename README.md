@@ -61,7 +61,7 @@ Install the required dependencies on RHEL/Fedora-based systems:
 ### Fedora 42
 ```bash
 sudo dnf update
-sudo dnf install gcc g++ cmake libXrandr-devel libXinerama-devel libXcursor-devel libXi-devel mesa-libGL-devel glew-devel freeglut-devel SDL2-devel lz4-devel ffmpeg ffmpeg-free-devel libXxf86vm-devel glm-devel glfw-devel mpv mpv-devel pulseaudio-libs-devel fftw-devel gmp-devel
+sudo dnf install gcc g++ cmake libXrandr-devel libXinerama-devel libXcursor-devel libXi-devel mesa-libGL-devel glew-devel freeglut-devel SDL2-devel lz4-devel ffmpeg ffmpeg-free-devel libXxf86vm-devel glm-devel glfw-devel mpv mpv-devel pulseaudio-libs-devel fftw-devel gmp-devel dbus-devel
 ```
 
 ---
@@ -140,6 +140,30 @@ make
 
 Once the build process is finished, this should create a new `output` folder containing the app and all the required
 support files to run.
+
+### Build an AppImage
+
+The AppImage build runs entirely inside an Ubuntu 22.04 container. The host only needs either Podman or Docker;
+Podman is used when both are installed. No compiler or project development packages are required on the host.
+
+```bash
+./package-scripts/appimage.sh
+```
+
+The script uses a multi-stage container build to compile the project and its CEF runtime, bundle the required
+user-space libraries, and export the final stage directly to:
+
+```text
+dist/linux-wallpaperengine-x86_64.AppImage
+```
+
+The first build requires network access and can take a while because it downloads the Ubuntu build dependencies,
+packaging tools, and CEF. The AppImage still uses the host's Linux kernel, graphics drivers, display server, and audio
+service. To run it without FUSE, use:
+
+```bash
+APPIMAGE_EXTRACT_AND_RUN=1 ./dist/linux-wallpaperengine-x86_64.AppImage [options] <background_id or path>
+```
 
 ---
 

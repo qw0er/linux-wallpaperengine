@@ -1,0 +1,6 @@
+.git
+.cache
+build
+cmake-build-*
+dist
+output
