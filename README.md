@@ -182,6 +182,22 @@ installed. The RPM package version is currently fixed at `1.0.0` in its spec fil
 The resulting package is written to `dist/linux-wallpaperengine-1.0.0-1.fc44.x86_64.rpm`. It installs the launcher
 in `/usr/bin` and the application with its CEF runtime in `/usr/lib64/linux-wallpaperengine`.
 
+### Build a DEB package (Debian 13 amd64)
+
+The DEB build runs inside a Debian 13 container. The host only needs Podman or Docker; Podman is used when both are
+installed. This package targets Debian 13 `amd64` and has version `1.0.0-1`.
+
+```bash
+./packaging/deb/deb.sh
+```
+
+The resulting package is written to `dist/linux-wallpaperengine_1.0.0-1_amd64.deb`. It installs a launcher in
+`/usr/bin` and the application with its CEF runtime in `/usr/lib/linux-wallpaperengine`. Install it with:
+
+```bash
+sudo apt install ./dist/linux-wallpaperengine_1.0.0-1_amd64.deb
+```
+
 ---
 
 ## 🧪 Usage
