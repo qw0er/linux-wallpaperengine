@@ -152,7 +152,7 @@ The AppImage build runs entirely inside an Ubuntu 22.04 container. The host only
 Podman is used when both are installed. No compiler or project development packages are required on the host.
 
 ```bash
-./package-scripts/appimage.sh
+./packaging/appimage/appimage.sh
 ```
 
 The script uses a multi-stage container build to compile the project and its CEF runtime, bundle the required
@@ -169,6 +169,18 @@ service. To run it without FUSE, use:
 ```bash
 APPIMAGE_EXTRACT_AND_RUN=1 ./dist/linux-wallpaperengine-x86_64.AppImage [options] <background_id or path>
 ```
+
+### Build an RPM package (Fedora 44 x86_64)
+
+The RPM build runs inside a Fedora 44 container. The host only needs Podman or Docker; Podman is used when both are
+installed. The RPM package version is currently fixed at `1.0.0` in its spec file.
+
+```bash
+./packaging/rpm/rpm.sh
+```
+
+The resulting package is written to `dist/linux-wallpaperengine-1.0.0-1.fc44.x86_64.rpm`. It installs the launcher
+in `/usr/bin` and the application with its CEF runtime in `/usr/lib64/linux-wallpaperengine`.
 
 ---
 

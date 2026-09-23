@@ -84,7 +84,7 @@ RUN mkdir -p /cache /artifacts \
     && SOURCE_DIR=/workspace \
        OUTPUT_DIR=/artifacts \
        CACHE_DIR=/cache \
-       /workspace/package-scripts/build-appimage-in-container.sh
+       /workspace/packaging/appimage/build-appimage-in-container.sh
 
 # The final stage intentionally contains only the file exported by
 # `podman build --output` or `docker build --output`.

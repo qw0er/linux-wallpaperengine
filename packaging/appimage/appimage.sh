@@ -3,7 +3,7 @@
 set -Eeuo pipefail
 
 script_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
-project_dir="$(cd -- "${script_dir}/.." && pwd)"
+project_dir="$(cd -- "${script_dir}/../.." && pwd)"
 dist_dir="${project_dir}/dist"
 
 case "$(uname -m)" in
@@ -27,7 +27,7 @@ mkdir -p -- "${dist_dir}"
 
 echo "Building and exporting the AppImage with ${container_runtime}..."
 "${container_runtime}" build \
-    --file "${script_dir}/Containerfile.appimage" \
+    --file "${script_dir}/appimage.containerfile" \
     --target artifact \
     --output "type=local,dest=${dist_dir}" \
     "${project_dir}"
