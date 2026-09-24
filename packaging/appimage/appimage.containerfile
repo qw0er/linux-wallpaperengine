@@ -91,3 +91,19 @@ RUN mkdir -p /cache /artifacts \
 FROM scratch AS artifact
 
 COPY --from=packager /artifacts/linux-wallpaperengine-x86_64.AppImage /
+
+FROM build-environment AS tar-packager
+
+WORKDIR /workspace
+COPY . /workspace
+
+RUN mkdir -p /cache /artifacts \
+    && SOURCE_DIR=/workspace \
+       OUTPUT_DIR=/artifacts \
+       CACHE_DIR=/cache \
+       PACKAGE_FORMAT=tar \
+       /workspace/packaging/appimage/build-appimage-in-container.sh
+
+FROM scratch AS tar-artifact
+
+COPY --from=tar-packager /artifacts/linux-wallpaperengine-1.0.0-x86_64.tar.gz /

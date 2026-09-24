@@ -11,6 +11,7 @@ readonly appdir="${work_dir}/linux-wallpaperengine.AppDir"
 readonly private_dir="${appdir}/usr/lib/linux-wallpaperengine"
 readonly artifact_name=linux-wallpaperengine-x86_64.AppImage
 readonly staged_artifact="${work_dir}/${artifact_name}"
+readonly tar_artifact_name=linux-wallpaperengine-1.0.0-x86_64.tar.gz
 
 cleanup() {
     rm -rf -- "${work_dir}"
@@ -99,6 +100,14 @@ patchelf --set-rpath '$ORIGIN:$ORIGIN/../lib:$ORIGIN/../lib64' "${private_dir}/l
     --desktop-file "${appdir}/usr/share/applications/linux-wallpaperengine.desktop" \
     --icon-file "${appdir}/usr/share/icons/hicolor/256x256/apps/linux-wallpaperengine.png" \
     || echo "warning: linuxdeploy exited after copying dependencies; continuing" >&2
+
+if [[ "${PACKAGE_FORMAT:-appimage}" == tar ]]; then
+    cp -a -- "${appdir}/AppRun" "${appdir}/linux-wallpaperengine"
+    tar -czf "${work_dir}/${tar_artifact_name}" \
+        -C "${work_dir}" "$(basename -- "${appdir}")"
+    mv -f -- "${work_dir}/${tar_artifact_name}" "${output_dir}/${tar_artifact_name}"
+    exit 0
+fi
 
 ARCH=x86_64 /usr/local/bin/appimagetool.AppImage \
     --no-appstream \
